@@ -7,6 +7,7 @@ function update_row() {
 
     global $pdo;
 
+    file_put_contents("update.log", print_r($_GET, true) );
 }
 
 // **************************

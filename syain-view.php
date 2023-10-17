@@ -52,7 +52,7 @@ td,th {
 // ***********************
 // カンマ編集
 // ***********************
-String.prototype.number_format = 
+String.prototype.number_format =
 function (prefix) {
     var num = this.valueOf();
     prefix = prefix || '';
@@ -78,11 +78,15 @@ $(function(){
         }
 
         var rows = [];
-    
+
+        $.each(document.getElementsByClassName("kyuyo"),function(index, val) {
+            rows[index] = { "val" : val.value, "code" : (val.id).replace("kyuyo","") }
+        });
+
         $.get({
             url: "syain.php",
             cache: false,
-            data: { "data" : rows }
+            data: { "type" : "update", "data" : rows }
         })
         .done(function( data, textStatus ){
             console.log( "status:" + textStatus );
@@ -97,7 +101,7 @@ $(function(){
                 toastr.error("システムエラーです");
 
             }
-            
+
         })
         // 失敗
         .fail(function(jqXHR, textStatus, errorThrown ){
@@ -117,9 +121,9 @@ $(function(){
 
     $("#load_data").on( "click", function(){
         $.ajax({
-                url: "https://lightbox.sakura.ne.jp/demo/json/syain_api1.php",
+                url: "syain.php",
                 cache: false,
-                data: { "name" : "" }
+                data: { "type": "get" }
         })
         .done(function( data, textStatus ){
             console.log( "status:" + textStatus );
@@ -180,7 +184,7 @@ function loadTable( arrayData ) {
                     .addClass("text-end")
                     .appendTo( row_data );
             }
-            else {  
+            else {
                 if ( propertyName == "給与" ) {
                     $("<td></td>")
                         .addClass("text-end")
@@ -235,6 +239,7 @@ function loadTable( arrayData ) {
                             <th class="text-end">給与</th>
                             <th class="text-end">手当</th>
                             <th>管理者</th>
+                            <th>生年月日</th>
                         </tr>
                     </thead>
                     <tbody id="tbl">
