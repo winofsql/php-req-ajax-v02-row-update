@@ -180,7 +180,7 @@ function loadTable( arrayData ) {
 
             if ( propertyName == "手当" ) {
                 $("<td></td>")
-                    .text( (valueOfProperty==null?"":valueOfProperty).number_format() )
+                    .text( (valueOfProperty==null?"":valueOfProperty+"").number_format() )
                     .addClass("text-end")
                     .appendTo( row_data );
             }
